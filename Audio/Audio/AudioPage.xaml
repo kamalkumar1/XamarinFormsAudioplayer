@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Audio" 
+             x:Class="Audio.AudioPage"
+              xmlns:cs="clr-namespace:Audio">
+    <StackLayout BackgroundColor ="Blue" Spacing="05" Padding="10,10,10,10" VerticalOptions="Center" HorizontalOptions="Fill">
+
+        <cs:CustomSlider
+            x:Name="customSlider" 
+            Minimum="0"
+            Maximum="100" 
+                VerticalOptions="Center"
+                ValueChanged="OnSliderValueChanged"/>
+        <Label
+            x:Name="lblTotalCount"
+             Text="Total:"
+             FontSize="Small"
+            TextColor="White"
+            />
+        <Label
+            x:Name="lblcurrent"
+             Text="0"
+             FontSize="Small"
+            TextColor="White"
+            />
+
+        <Button Text ="Play" 
+        VerticalOptions="Start"
+        HorizontalOptions="Fill"
+        TextColor = "Red"
+        BackgroundColor="Black"
+        Clicked="PlayClick"
+        FontAttributes="Bold"
+        FontSize="Small" />
+        
+         <Button Text ="Pause" 
+        VerticalOptions="Start"
+        HorizontalOptions="Fill"
+        TextColor = "Red"
+        BackgroundColor="Black"
+        Clicked="PauseClick"
+        FontAttributes="Bold"
+        FontSize="Small" />
+        
+         <Button Text ="Restart" 
+        VerticalOptions="Start"
+        HorizontalOptions="Fill"
+        TextColor = "Red"
+        BackgroundColor="Black"
+        Clicked="RestartClick"
+        FontAttributes="Bold"
+        FontSize="Small" />
+     </StackLayout>   
+   
+</ContentPage>
