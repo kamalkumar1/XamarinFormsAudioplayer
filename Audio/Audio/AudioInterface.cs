@@ -11,9 +11,9 @@ namespace Audio
         void Pause();
         void Restart();
         void RemoveNotification();
-        object playerCurrettime();
-        object getTotaltime();
+        object PlayerCurrettime();
+        object GetTotaltime();
         object MediaTotalDuration();
-        event EventHandler positionChanged;
+        event EventHandler PositionChanged;
     }
 }

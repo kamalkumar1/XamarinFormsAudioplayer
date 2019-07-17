@@ -29,9 +29,9 @@ namespace Audio
             var dialer = DependencyService.Get<AudioInterface>();
             if (dialer != null)
             {
-                dialer.positionChanged += Dialer_PositionChanged;
+                dialer.PositionChanged += Dialer_PositionChanged;
                 dialer.SetUpAudio();
-                lblTotalCount.Text  = (string) dialer.getTotaltime();
+                lblTotalCount.Text  = (string) dialer.GetTotaltime();
                 customSlider.Maximum = Convert.ToDouble(dialer.MediaTotalDuration());
               
             }

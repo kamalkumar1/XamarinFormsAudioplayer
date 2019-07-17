@@ -20,9 +20,9 @@ namespace Audio.iOS
         private const int NSEC_PER_SEC = 1000000000;
         // public void delegate po
         static public NSTimer timer;
-        public event EventHandler positionChanged;
+        public event EventHandler PositionChanged;
 
-        public object getTotaltime()
+        public object GetTotaltime()
         {
             var totalduration = player.CurrentItem.Asset.Duration.Seconds;
             var totaltime = Convert.ToInt64(totalduration);
@@ -44,7 +44,7 @@ namespace Audio.iOS
             }
 
         }
-        public object playerCurrettime()
+        public object PlayerCurrettime()
         {
             var totalduration = player.CurrentTime.Seconds;
             var totaltime = Convert.ToInt64(totalduration);
@@ -113,12 +113,12 @@ namespace Audio.iOS
                                                            DispatchQueue.MainQueue,
                                                            delegate
                                                            {
-                                                               if (positionChanged != null)
+                                                               if (PositionChanged != null)
                                                                {
                                                                    var EmployeeList = new Dictionary<string, object>();
                                                                    EmployeeList.Add("CurrentDuration", player.CurrentTime.Seconds);
-                                                                   EmployeeList.Add("CurrentText", (string)playerCurrettime());
-                                                                   positionChanged(EmployeeList, EventArgs.Empty);
+                                                                   EmployeeList.Add("CurrentText", (string)PlayerCurrettime());
+                                                                   PositionChanged(EmployeeList, EventArgs.Empty);
                                                                }
                                                            });
 
@@ -134,12 +134,12 @@ namespace Audio.iOS
 
         void HandleAction(NSTimer obj)
         {
-            if (positionChanged != null)
+            if (PositionChanged != null)
             {
                 var EmployeeList = new Dictionary<string, object>();
                 EmployeeList.Add("CurrentDuration", player.CurrentTime.Seconds);
-                EmployeeList.Add("CurrentText", (string)playerCurrettime());
-                positionChanged(EmployeeList, EventArgs.Empty);
+                EmployeeList.Add("CurrentText", (string)PlayerCurrettime());
+                PositionChanged(EmployeeList, EventArgs.Empty);
             }
 
         }

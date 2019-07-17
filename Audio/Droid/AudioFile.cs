@@ -19,11 +19,11 @@ namespace Audio.Droid
 
         public Handler handlers;
 
-        public event EventHandler positionChanged;
+        public event EventHandler PositionChanged;
         public Runnable runnable;
         //Runnable runnable = new Runnable();
 
-        public object getTotaltime()
+        public object GetTotaltime()
         {
             int minutes = player.Duration / 1000 / 60;
             int seconds = player.Duration / 1000 % 60;
@@ -41,7 +41,7 @@ namespace Audio.Droid
             }
 
         }
-        public object playerCurrettime()
+        public object PlayerCurrettime()
         {
             int minutes = player.CurrentPosition / 1000 / 60;
             int seconds = player.CurrentPosition / 1000 % 60;
@@ -108,13 +108,13 @@ namespace Audio.Droid
         public void PlayCycle()
         {
             Console.WriteLine(player.CurrentPosition);
-            if (positionChanged != null)
+            if (PositionChanged != null)
                 if (player.CurrentPosition > 0)
                 {
                     var EmployeeList = new Dictionary<string, object>();
                     EmployeeList.Add("CurrentDuration", player.CurrentPosition);
-                    EmployeeList.Add("CurrentText", (string)playerCurrettime());
-                    positionChanged(EmployeeList, EventArgs.Empty);
+                    EmployeeList.Add("CurrentText", (string)PlayerCurrettime());
+                    PositionChanged(EmployeeList, EventArgs.Empty);
                 }
             if (player.IsPlaying)
             {
