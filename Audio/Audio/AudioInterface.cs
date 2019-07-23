@@ -6,7 +6,7 @@ namespace Audio
     public interface AudioInterface
     {
 
-        void SetUpAudio();
+        void SetUpAudio(string filename,string filetype);
         void Play();
         void Pause();
         void Restart();

@@ -22,6 +22,10 @@ namespace Audio.Droid
         public event EventHandler PositionChanged;
         public Runnable runnable;
         //Runnable runnable = new Runnable();
+        public static void Init()
+        {
+
+        }
 
         public object GetTotaltime()
         {
@@ -82,12 +86,12 @@ namespace Audio.Droid
             }
         }
 
-        public void SetUpAudio()
+        public void SetUpAudio(string filename,string filetype)
         {
             try
             {
                 player = new MediaPlayer();
-                afd = global::Android.App.Application.Context.Assets.OpenFd("KARTKA.mp3");
+                afd = global::Android.App.Application.Context.Assets.OpenFd(filename+"."+filetype);
                 player.SetDataSource(afd.FileDescriptor, afd.StartOffset, afd.Length);
                 player.Completion += Player_SeekComplete;
                 player.Info += Player_Info;

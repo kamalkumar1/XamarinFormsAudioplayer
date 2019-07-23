@@ -30,10 +30,10 @@ namespace Audio
             if (dialer != null)
             {
                 dialer.PositionChanged += Dialer_PositionChanged;
-                dialer.SetUpAudio();
+                dialer.SetUpAudio("KARTKA", "mp3");
                 lblTotalCount.Text  = (string) dialer.GetTotaltime();
                 customSlider.Maximum = Convert.ToDouble(dialer.MediaTotalDuration());
-              
+           
             }
         }
 
