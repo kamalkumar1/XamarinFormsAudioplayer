@@ -23,10 +23,5 @@ namespace XamarinAudioPlayer
             return nativeSlider;
         }
 
-        // Example: Extend common Slider methods/properties
-
-        
-
-        // Add more methods as needed based on the Slider API
     }
 }
