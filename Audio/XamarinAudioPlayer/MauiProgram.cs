@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
+﻿
+using Microsoft.Extensions.Logging;
+using Microsoft.Maui.Controls.PlatformConfiguration;
+using XamarinAudioPlayer.Control;
 
 namespace XamarinAudioPlayer
 {
@@ -6,17 +9,23 @@ namespace XamarinAudioPlayer
     {
         public static MauiApp CreateMauiApp()
         {
-            var builder = MauiApp.CreateBuilder();
-            builder
+            var builder = MauiApp.CreateBuilder()
+
                 .UseMauiApp<App>()
-                .ConfigureFonts(fonts =>
+                .ConfigureMauiHandlers(handler =>
                 {
-                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+
+                    handler.AddHandler(typeof(MyCustomSlider), typeof(XamarinAudioPlayer.MySliderHandler));
+
                 });
+                //.ConfigureFonts(fonts =>
+                //{
+                //    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                //    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                //});
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();
