@@ -1,11 +1,8 @@
 ﻿using System;
 using Android.OS;
 using Android.Media;
-using Android.Content;
-using Android.Media.Session;
 using Android.Runtime;
 using Java.Lang;
-using System.Collections.Generic;
 using Android.Content.Res;
 using XamarinAudioPlayer.Interface;
 
@@ -14,42 +11,31 @@ namespace XamarinAudioPlayer.Platforms.Android
 
     internal class KKAudioFile : IAudioInterface
     {
-         MediaPlayer Player;
-         AssetFileDescriptor afd = null;
-
-        public Handler handlers;
-
-        public event EventHandler PositionChanged;
-        public Runnable Runnable;
-        //Runnable runnable = new Runnable();
+         MediaPlayer? Player;
+         AssetFileDescriptor? afd = null;
+        public Handler? handlers;
+        public event EventHandler? PositionChanged;
+        public Runnable? Runnable;
         public KKAudioFile()
         {
 
         }
-        public object GetTotaltime()
+        public object GetTotalTime()
         {
-            int minutes = Player.Duration / 1000 / 60;
-            int seconds = Player.Duration / 1000 % 60;
+            int minutes = Player?.Duration / 1000 / 60 ?? 0;
+            int seconds = Player?.Duration / 1000 % 60 ?? 0;
             var totalTime = minutes.ToString() + ":" + seconds;
             return totalTime;
         }
         public object MediaTotalDuration()
         {
-            if (Player != null)
-            {
-                return Player.Duration;
-            }
-            else
-            {
-                return 0.0;
-            }
-
+            return Player?.Duration ?? 0.0;
         }
-        public object PlayerCurrettime()
+        public object PlayerCurrentTime()
         {
-            int minutes = Player.CurrentPosition / 1000 / 60;
-            int seconds = Player.CurrentPosition / 1000 % 60;
-            var strSeconds = "";
+            int minutes = Player?.CurrentPosition / 1000 / 60 ?? 0;
+            int seconds = Player?.CurrentPosition / 1000 % 60 ?? 0;
+            var strSeconds = string.Empty;
             if (seconds.ToString().Length == 1)
             {
                 strSeconds = "0" + seconds;
@@ -63,12 +49,12 @@ namespace XamarinAudioPlayer.Platforms.Android
         }
         public void Pause()
         {
-            Player.Pause();
+            Player?.Pause();
         }
 
         public void Play()
         {
-            Player.Start();
+            Player?.Start();
             handlers = new Handler();
             PlayCycle();
         }
@@ -85,7 +71,6 @@ namespace XamarinAudioPlayer.Platforms.Android
 
             }
         }
-
         public void SetUpAudio(string filename, string filetype)
         {
             try
@@ -104,35 +89,45 @@ namespace XamarinAudioPlayer.Platforms.Android
                 Console.WriteLine(ex);
             }
         }
-        public void RemoveNotification()
+        public void RemoveAudioSetup()
         {
-
+            if (Player != null)
+            {
+                Player.Completion -= Player_SeekComplete;
+                Player.Info -= Player_Info;
+                Player.Release();
+                handlers?.RemoveCallbacks(Runnable);
+                PositionChanged = null;
+                handlers = null;
+                Runnable = null;
+                Player = null;
+                afd?.Close();
+                afd = null;
+            }
         }
 
         public void PlayCycle()
         {
-            Console.WriteLine(Player.CurrentPosition);
+            Console.WriteLine(Player?.CurrentPosition);
             if (PositionChanged != null)
-                if (Player.CurrentPosition > 0)
+                if (Player?.CurrentPosition > 0)
                 {
                     var playDetail = new Dictionary<string, object>();
                     playDetail.Add("CurrentDuration", Player.CurrentPosition);
-                    playDetail.Add("CurrentText", (string)PlayerCurrettime());
+                    playDetail.Add("CurrentText", (string)PlayerCurrentTime());
                     PositionChanged(playDetail, EventArgs.Empty);
                 }
-            if (Player.IsPlaying)
+            if (Player?.IsPlaying == true)
             {
                 Runnable = new Runnable(delegate
                 {
                     PlayCycle();
 
                 });
-                handlers.PostDelayed(Runnable, 1000);
+                handlers?.PostDelayed(Runnable, 1000);
 
             }
         }
-
-
         void Player_Info(object sender, MediaPlayer.InfoEventArgs e)
         {
 

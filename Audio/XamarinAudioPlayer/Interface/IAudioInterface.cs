@@ -12,9 +12,9 @@ namespace XamarinAudioPlayer.Interface
         void Play();
         void Pause();
         void Restart();
-        void RemoveNotification();
-        object PlayerCurrettime();
-        object GetTotaltime();
+        void RemoveAudioSetup();
+        object PlayerCurrentTime();
+        object GetTotalTime();
         object MediaTotalDuration();
         event EventHandler PositionChanged;
     }
