@@ -1,6 +1,8 @@
 using XamarinAudioPlayer;
 using System.Diagnostics;
 using XamarinAudioPlayer.Interface;
+using XamarinAudioPlayer.ViewModel;
+using XamarinAudioPlayer.Model;
 #if ANDROID
 using XamarinAudioPlayer.Platforms.Android;
 #elif IOS
@@ -15,6 +17,7 @@ public partial class KKAudioPlayer : ContentPage
     public KKAudioPlayer()
     {
         InitializeComponent();
+        BindingContext = new KKAuidoPlayerViewModel(); // Fix for CS8618: Initialize the ViewModel.
         _audioFile = new KKAudioFile(); 
         lblcurrent.Text = "0.0";
         SetupAuidoFile();
@@ -38,9 +41,9 @@ public partial class KKAudioPlayer : ContentPage
         if (_audioFile != null)
         {
             //Set the audio file name and type here
-            _audioFile.SetUpAudio("TestAuidoSong", "mp3");
+            _audioFile.SetUpAudio("TestAudioSong", "mp3");
             // Subscribe to the PositionChanged event current audio position
-            _audioFile.PositionChanged += Dialer_PositionChanged;
+            _audioFile.PositionChanged += Slider_PositionChanged;
             // Get the total playing time of the audio file
             lblTotalCount.Text = (string)_audioFile.GetTotalTime();
             // Set the total playing time of the audio file as the maximum value of the slider
@@ -74,21 +77,13 @@ public partial class KKAudioPlayer : ContentPage
             _audioFile.Restart();
         lblcurrent.Text = "0.0";
     }
-    /// <summary>
-    /// Slider value changed event handler.
-    /// </summary>
-    void OnSliderValueChanged(object sender, ValueChangedEventArgs eventArgs)
+    
+    private void Slider_PositionChanged(object sender, EventArgs e)
     {
-        Debug.WriteLine("ConsoleTimer:" + eventArgs.NewValue);
-    }
-
-    private void Dialer_PositionChanged(object sender, EventArgs e) // Fix for CS1520: Add 'void' return type.
-    {
-        var dictionary = sender as Dictionary<string, object>;
-        if (dictionary != null)
+        if (sender is KKAudioPlayTime playTime)
         {
-            lblcurrent.Text = (string)dictionary["CurrentText"];
-            customSlider.Value = Convert.ToDouble(dictionary["CurrentDuration"]);
+            lblcurrent.Text = playTime.CurrentPlayTime.ToString();
+            customSlider.Value = Convert.ToDouble(playTime.SliderValue);
         }
     }
 }

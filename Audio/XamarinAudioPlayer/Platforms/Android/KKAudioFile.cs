@@ -5,6 +5,7 @@ using Android.Runtime;
 using Java.Lang;
 using Android.Content.Res;
 using XamarinAudioPlayer.Interface;
+using XamarinAudioPlayer.Model;
 
 namespace XamarinAudioPlayer.Platforms.Android
 {
@@ -15,11 +16,17 @@ namespace XamarinAudioPlayer.Platforms.Android
          AssetFileDescriptor? afd = null;
         public Handler? handlers;
         public event EventHandler? PositionChanged;
+        public event EventHandler IsAudioCompleted;
+
         public Runnable? Runnable;
         public KKAudioFile()
         {
 
         }
+        /// <summary>
+        /// Returns the total time of the audio file in "minutes:seconds" format.
+        /// </summary>
+        /// <returns></returns>
         public object GetTotalTime()
         {
             int minutes = Player?.Duration / 1000 / 60 ?? 0;
@@ -27,10 +34,18 @@ namespace XamarinAudioPlayer.Platforms.Android
             var totalTime = minutes.ToString() + ":" + seconds;
             return totalTime;
         }
+        /// <summary>
+        /// Returns the total duration of the media in seconds.
+        /// </summary>
+        /// <returns></returns>
         public object MediaTotalDuration()
         {
             return Player?.Duration ?? 0.0;
         }
+        /// <summary>
+        /// Returns the current playback time of the audio in "minutes:seconds" format.
+        /// </summary>
+        /// <returns></returns>
         public object PlayerCurrentTime()
         {
             int minutes = Player?.CurrentPosition / 1000 / 60 ?? 0;
@@ -47,17 +62,25 @@ namespace XamarinAudioPlayer.Platforms.Android
             var totalTime = minutes.ToString() + ":" + strSeconds;
             return totalTime;
         }
+        /// <summary>
+        /// Pauses the audio playback.
+        /// </summary>
         public void Pause()
         {
             Player?.Pause();
         }
-
+        /// <summary>
+        /// Plays the audio.
+        /// </summary>
         public void Play()
         {
             Player?.Start();
             handlers = new Handler();
             PlayCycle();
         }
+        /// <summary>
+        /// Restarts the audio playback.
+        /// </summary>
         public void Restart()
         {
             if (Player != null)
@@ -71,6 +94,11 @@ namespace XamarinAudioPlayer.Platforms.Android
 
             }
         }
+        /// <summary>
+        /// Sets up the audio player with the specified audio file.
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <param name="filetype"></param>
         public void SetUpAudio(string filename, string filetype)
         {
             try
@@ -89,6 +117,9 @@ namespace XamarinAudioPlayer.Platforms.Android
                 Console.WriteLine(ex);
             }
         }
+        /// <summary>
+        /// Removes the audio setup, releasing resources and releasing from memory.
+        /// </summary>
         public void RemoveAudioSetup()
         {
             if (Player != null)
@@ -112,10 +143,10 @@ namespace XamarinAudioPlayer.Platforms.Android
             if (PositionChanged != null)
                 if (Player?.CurrentPosition > 0)
                 {
-                    var playDetail = new Dictionary<string, object>();
-                    playDetail.Add("CurrentDuration", Player.CurrentPosition);
-                    playDetail.Add("CurrentText", (string)PlayerCurrentTime());
-                    PositionChanged(playDetail, EventArgs.Empty);
+                    KKAudioPlayTime playTime = new KKAudioPlayTime();
+                    playTime.CurrentPlayTime = PlayerCurrentTime()?.ToString();
+                    playTime.SliderValue = Player.CurrentPosition;
+                    PositionChanged(playTime, EventArgs.Empty);
                 }
             if (Player?.IsPlaying == true)
             {
@@ -132,21 +163,20 @@ namespace XamarinAudioPlayer.Platforms.Android
         {
 
         }
-
-
+        /// <summary>
+        /// Handles the completion of the audio playback and stops the player.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void Player_SeekComplete(object sender, EventArgs e)
         {
             if (Player != null)
             {
                 Player.Stop();
+                IsAudioCompleted?.Invoke(null, EventArgs.Empty);
             }
         }
 
-
-        public void SlidePlay(double value)
-        {
-
-        }
         public  void getobject(int values)
         {
             //Console.WriteLine("console5:"+ values);
@@ -206,6 +236,18 @@ namespace XamarinAudioPlayer.Platforms.Android
 
             // return timer string
             return finalTimerString;
+        }
+/// <summary>
+/// Checks if the audio player is currently playing.
+/// </summary>
+/// <returns>True if the audio player is playing, false otherwise.</returns>
+        public bool IsPlaying()
+        {
+            if (Player != null)
+            {
+                return Player.IsPlaying;
+            }
+            return false;
         }
     }
 }

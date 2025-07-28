@@ -9,6 +9,7 @@ namespace XamarinAudioPlayer.Interface
     internal interface IAudioInterface
     {
         void SetUpAudio(string filename, string filetype);
+        bool IsPlaying();
         void Play();
         void Pause();
         void Restart();
@@ -17,5 +18,6 @@ namespace XamarinAudioPlayer.Interface
         object GetTotalTime();
         object MediaTotalDuration();
         event EventHandler PositionChanged;
+        event EventHandler IsAudioCompleted;
     }
 }

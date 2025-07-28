@@ -19,7 +19,12 @@ namespace XamarinAudioPlayer
         
         protected override UISlider CreatePlatformView()
         {
-            return new UISlider();
+            base.CreatePlatformView();
+            var slider = new UISlider();
+            // Hide the thumb by setting a transparent image
+            slider.SetThumbImage(new UIImage(), UIControlState.Normal);
+            // Create and return a custom UISlider instance
+            return slider;
         }
        
     }

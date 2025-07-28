@@ -19,6 +19,7 @@ namespace XamarinAudioPlayer
         protected override SeekBar CreatePlatformView()
         {
             var nativeSlider = base.CreatePlatformView();
+            nativeSlider.SetThumb(null); // Hide the thumb by setting it to null
 
             return nativeSlider;
         }

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using CoreFoundation;
 using XamarinAudioPlayer.Interface;
 using System.Diagnostics;
+using XamarinAudioPlayer.Model;
 namespace XamarinAudioPlayer.Platforms.iOS
 {
     public class KKAudioFile : IAudioInterface
@@ -17,6 +18,7 @@ namespace XamarinAudioPlayer.Platforms.iOS
         private const int NSEC_PER_SEC = 1000000000;
 
         public event EventHandler? PositionChanged;
+        public event EventHandler IsAudioCompleted;
 
         public KKAudioFile()
         {
@@ -115,10 +117,10 @@ namespace XamarinAudioPlayer.Platforms.iOS
         {
             if (PositionChanged != null)
             {
-                var EmployeeList = new Dictionary<string, object>();
-                EmployeeList.Add("CurrentDuration", Player.CurrentTime.Seconds);
-                EmployeeList.Add("CurrentText", (string)PlayerCurrentTime());
-                PositionChanged(EmployeeList, EventArgs.Empty);
+                KKAudioPlayTime playTime = new KKAudioPlayTime();
+                playTime.CurrentPlayTime = PlayerCurrentTime()?.ToString();
+                playTime.SliderValue = Player.CurrentTime.Seconds;
+                PositionChanged(playTime, EventArgs.Empty);
             }
 
         }
@@ -133,6 +135,7 @@ namespace XamarinAudioPlayer.Platforms.iOS
         private void HandleNotification(NSNotification notification)
         {
             Player?.Seek(CoreMedia.CMTime.Zero);
+            IsAudioCompleted?.Invoke(null, EventArgs.Empty);
         }
         public void RemoveAudioSetup()
         {
@@ -187,6 +190,15 @@ namespace XamarinAudioPlayer.Platforms.iOS
             Player.Seek(time);
             Player.Play();
 
+        }
+
+        public bool IsPlaying()
+        {
+            if (Player != null)
+            {
+                return Player.Rate > 0;
+            }
+            return false;
         }
     }
 }
