@@ -21,7 +21,7 @@ namespace XamarinAudioPlayer.Platforms.Android
         public Runnable? Runnable;
         public KKAudioFile()
         {
-
+            Runnable = new Runnable(() => PlayCycle());
         }
         /// <summary>
         /// Returns the total time of the audio file in "minutes:seconds" format.
@@ -62,40 +62,9 @@ namespace XamarinAudioPlayer.Platforms.Android
             var totalTime = minutes.ToString() + ":" + strSeconds;
             return totalTime;
         }
+    
         /// <summary>
-        /// Pauses the audio playback.
-        /// </summary>
-        public void Pause()
-        {
-            Player?.Pause();
-        }
-        /// <summary>
-        /// Plays the audio.
-        /// </summary>
-        public void Play()
-        {
-            Player?.Start();
-            handlers = new Handler();
-            PlayCycle();
-        }
-        /// <summary>
-        /// Restarts the audio playback.
-        /// </summary>
-        public void Restart()
-        {
-            if (Player != null)
-            {
-                Player.Reset();
-                Player.SetDataSource(afd.FileDescriptor, afd.StartOffset, afd.Length);
-                Player.Prepare();
-                Player.Start();
-                handlers = new Handler();
-                PlayCycle();
-
-            }
-        }
-        /// <summary>
-        /// Sets up the audio player with the specified audio file.
+        /// Sets up the audio player with the specified audio file and prepares it for playback.
         /// </summary>
         /// <param name="filename"></param>
         /// <param name="filetype"></param>
@@ -103,13 +72,16 @@ namespace XamarinAudioPlayer.Platforms.Android
         {
             try
             {
-                Player = new MediaPlayer();
-                afd = global::Android.App.Application.Context.Assets.OpenFd(filename + "." + filetype);
-                Player.SetDataSource(afd.FileDescriptor, afd.StartOffset, afd.Length);
-                Player.Completion += Player_SeekComplete;
-                Player.Info += Player_Info;
-                Player.Prepare();
+                if (Player == null)
+                {
+                    Player = new MediaPlayer();
+                    afd = global::Android.App.Application.Context.Assets.OpenFd(filename + "." + filetype);
+                    Player.SetDataSource(afd.FileDescriptor, afd.StartOffset, afd.Length);
+                    Player.Completion += Player_SeekComplete;
+                    Player.Info += Player_Info;
+                    Player.Prepare();
 
+                }
             }
             catch (System.Exception ex)
             {
@@ -117,6 +89,7 @@ namespace XamarinAudioPlayer.Platforms.Android
                 Console.WriteLine(ex);
             }
         }
+
         /// <summary>
         /// Removes the audio setup, releasing resources and releasing from memory.
         /// </summary>
@@ -150,18 +123,46 @@ namespace XamarinAudioPlayer.Platforms.Android
                 }
             if (Player?.IsPlaying == true)
             {
-                Runnable = new Runnable(delegate
-                {
-                    PlayCycle();
-
-                });
                 handlers?.PostDelayed(Runnable, 1000);
-
             }
         }
         void Player_Info(object sender, MediaPlayer.InfoEventArgs e)
         {
 
+        }
+        /// <summary>
+        ///  Begins or resumes playing the current media.
+        /// </summary>
+        public void Play()
+        {
+            Player?.Start();
+            if (handlers == null)
+                handlers = new Handler();
+            PlayCycle();
+        }
+         /// <summary>
+        /// Pauses the audio playback.
+        /// </summary>
+        public void Pause()
+        {
+            Player?.Pause();
+        }
+        
+        /// <summary>
+        /// Restarts the audio playback.
+        /// </summary>
+        public void Restart()
+        {
+            if (Player != null)
+            {
+                Player.Reset();
+                Player.SetDataSource(afd.FileDescriptor, afd.StartOffset, afd.Length);
+                Player.Prepare();
+                Player.Start();
+                handlers = new Handler();
+                PlayCycle();
+
+            }
         }
         /// <summary>
         /// Handles the completion of the audio playback and stops the player.
@@ -172,7 +173,7 @@ namespace XamarinAudioPlayer.Platforms.Android
         {
             if (Player != null)
             {
-                Player.Stop();
+                Player.SeekTo(0.0);
                 IsAudioCompleted?.Invoke(null, EventArgs.Empty);
             }
         }
@@ -250,4 +251,5 @@ namespace XamarinAudioPlayer.Platforms.Android
             return false;
         }
     }
+     
 }
