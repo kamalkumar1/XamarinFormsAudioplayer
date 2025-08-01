@@ -31,7 +31,7 @@ namespace XamarinAudioPlayer.Platforms.Android
         {
             int minutes = Player?.Duration / 1000 / 60 ?? 0;
             int seconds = Player?.Duration / 1000 % 60 ?? 0;
-            var totalTime = minutes.ToString() + ":" + seconds;
+            var totalTime = minutes.ToString() + ":" + seconds.ToString("D2");
             return totalTime;
         }
         /// <summary>
@@ -48,19 +48,24 @@ namespace XamarinAudioPlayer.Platforms.Android
         /// <returns></returns>
         public object PlayerCurrentTime()
         {
+
             int minutes = Player?.CurrentPosition / 1000 / 60 ?? 0;
             int seconds = Player?.CurrentPosition / 1000 % 60 ?? 0;
-            var strSeconds = string.Empty;
-            if (seconds.ToString().Length == 1)
-            {
-                strSeconds = "0" + seconds;
-            }
-            else
-            {
-                strSeconds = seconds.ToString();
-            }
-            var totalTime = minutes.ToString() + ":" + strSeconds;
+            var totalTime = minutes.ToString() + ":" + seconds.ToString("D2");
             return totalTime;
+            // int minutes = Player?.CurrentPosition / 10000 / 60 ?? 0;
+            // int seconds = Player?.CurrentPosition / 10000 % 60 ?? 0;
+            // var strSeconds = string.Empty;
+            // if (seconds.ToString().Length == 1)
+            // {
+            //     strSeconds = "0" + seconds;
+            // }
+            // else
+            // {
+            //     strSeconds = seconds.ToString();
+            // }
+            // var totalTime = minutes.ToString() + ":" + strSeconds;
+            // return totalTime;
         }
     
         /// <summary>
@@ -117,7 +122,7 @@ namespace XamarinAudioPlayer.Platforms.Android
                 if (Player?.CurrentPosition > 0)
                 {
                     KKAudioPlayTime playTime = new KKAudioPlayTime();
-                    playTime.CurrentPlayTime = PlayerCurrentTime()?.ToString();
+                    playTime.CurrentPlayTime = (string)PlayerCurrentTime();
                     playTime.SliderValue = Player.CurrentPosition;
                     PositionChanged(playTime, EventArgs.Empty);
                 }
@@ -173,7 +178,6 @@ namespace XamarinAudioPlayer.Platforms.Android
         {
             if (Player != null)
             {
-                Player.SeekTo(0.0);
                 IsAudioCompleted?.Invoke(null, EventArgs.Empty);
             }
         }

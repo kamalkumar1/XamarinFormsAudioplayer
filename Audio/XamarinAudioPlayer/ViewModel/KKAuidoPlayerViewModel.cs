@@ -214,7 +214,6 @@ namespace XamarinAudioPlayer.ViewModel
         {
             playAndPauseImageName = PlayImageName;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PlayAndPauseImageName)));
-            // Reset to PlayImageName when audio completes
         }
 
         private void OnAudioFilePositionChanged(object? sender, EventArgs e)
@@ -229,9 +228,9 @@ namespace XamarinAudioPlayer.ViewModel
         {
             PlayAndPauseImageName = PlayImageName; // Reset to PlayImageName when setting new file
             _kKAudioFile.SetUpAudio(FileName, FileType);
-            TotalPlayTime = _kKAudioFile.GetTotalTime()?.ToString() ?? "0.0";
+            TotalPlayTime = _kKAudioFile.GetTotalTime()?.ToString() ?? "0.00";
             SliderMaximum = Convert.ToDouble(_kKAudioFile.MediaTotalDuration());
-            CurrentPlayTime = "0.0";
+            CurrentPlayTime = "0.00";
         }
         public void RemoveAudioSetup()
         {
