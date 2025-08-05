@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cs ="clr-namespace:XamarinAudioPlayer.Control"
+             x:Class="XamarinAudioPlayer.View.KKAudioPlayerView">
+    <Grid Margin="12,0,12,0" RowDefinitions="Auto,*,Auto" ColumnDefinitions="*,*">
+        <cs:MyCustomSlider  MaximumTrackColor="{Binding MaximumTrackColors}" MinimumTrackColor="{Binding MinimumTrackColors}" Value="{Binding SliderValue}" Maximum="{Binding SliderMaximum}" Margin="0,12,0,12"  Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
+        <Label TextColor ="{Binding CurrentPlayTimeTextColor}" FontSize="{Binding CurrentPlayTimeFontSize}" Text="{Binding CurrentPlayTime}" Grid.Row="1" Grid.Column="0"   />
+        <Label TextColor ="{Binding EndPlayTimeTextColor}" FontSize="{Binding EndPlayTimeFontSize}" HorizontalTextAlignment ="End" Text="{Binding TotalPlayTime}"  Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"  />
+        <Image Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Source="{Binding PlayAndPauseImageName}" WidthRequest="45" HeightRequest="45" HorizontalOptions="Center">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding PlayCommand}" />
+            </Image.GestureRecognizers>
+        </Image>
+    </Grid>
+</ContentView>
