@@ -1,3 +1,4 @@
+
 #XamarinAudioPlayer.Forms.kk developed using MAUI.
 https://www.nuget.org/packages/XamarinAudioPlayer.Forms.kk/
 
@@ -28,6 +29,14 @@ dotnet add package XamarinAudioPlayer.Forms.kk
       ```xml
       xmlns:cs="clr-namespace:XamarinAudioPlayerLibary.View;assembly=XamarinAudioPlayerLibary"
       ```
+    6. Add this line code in you  inside the configure handler handler in maui program.cs file:
+    ```csharp
+          .ConfigureMauiHandlers(handlers =>
+     	{
+     		// Register custom handlers if needed
+     		handlers.AddHandler(typeof(KKCustomSlider), typeof(XamarinAudioPlayer.KKSliderHandler));
+     	})
+ ```
    5.Add the 'KKAudioPlayerView' control to your XAML page where you want the audio player to appear:
       ```xml
       
@@ -137,5 +146,6 @@ dotnet add package XamarinAudioPlayer.Forms.kk
    git clone https://github.com/kamalkumar1/XamarinFormsAudioplayer/tree/develop
 Author
 Kamal Kumar Senior Mobile Application Developer Open-source contributor|iOS(objective-c, Swift) | MAUI & Xamarin expert 📫 LinkedIn
+
 
 
