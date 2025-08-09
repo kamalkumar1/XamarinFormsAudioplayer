@@ -12,7 +12,7 @@ public static class MauiProgram
 			.ConfigureMauiHandlers(handlers =>
 			{
 				// Register custom handlers if needed
-				handlers.AddHandler(typeof(MyCustomSlider), typeof(XamarinAudioPlayer.MySliderHandler));
+				handlers.AddHandler(typeof(KKCustomSlider), typeof(XamarinAudioPlayer.KKSliderHandler));
 			})
             .ConfigureFonts(fonts =>
 			{

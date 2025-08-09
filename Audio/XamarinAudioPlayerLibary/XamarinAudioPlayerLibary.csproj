@@ -14,14 +14,28 @@
 		<PackageIcon>Nuget_icon.png</PackageIcon>
 		<PackageId>XamarinAudioPlayer.Forms.kk</PackageId>
 		<Title>MAUI Audio Player</Title>
-		<Version>2.1.2</Version>
+		<Version>2.1.1</Version>
 		<Company>kamal</Company>
 		<Description>This library supports playing audio files from both the app's bundled resources and the device's local file system.</Description>
 		<PackageProjectUrl>https://github.com/kamalkumar1/XamarinFormsAudioplayer/tree/develop</PackageProjectUrl>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageLicenseFile>MIT License.txt</PackageLicenseFile>
+		<PackageReleaseNotes>- Read Audio files from the app's bundled resources.
+- Read Audio files from the device's local file system.
+- Cross-platform support (**Android &amp; iOS**).
+- Smooth UI experience with **MAUI**.
+- It has predefined Audio Player Controls for easy integration.
+- It has progress control to show the audio file play time.
+- It has play, pause, stop to control for the audio.</PackageReleaseNotes>
+		<PackageTags>iOS;Android;MAUI;Xamarin;Xamarinforms;Audio;mp3</PackageTags>
+		<RepositoryUrl>https://github.com/kamalkumar1/XamarinFormsAudioplayer/tree/develop</RepositoryUrl>
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Include="..\..\..\..\MIT License.txt">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
 	  <None Include="..\..\..\..\Nuget_icon.png">
 	    <Pack>True</Pack>
 	    <PackagePath>\</PackagePath>
