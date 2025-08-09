@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace XamarinAudioPlayer.Control
 {
-    public class MyCustomSlider : Slider
+    public class KKCustomSlider : Slider
     {
-        public  MyCustomSlider ()
+        public  KKCustomSlider ()
         {
 
         }

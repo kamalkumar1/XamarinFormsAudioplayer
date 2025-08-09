@@ -6,12 +6,12 @@ using XamarinAudioPlayer.Control;
 
 namespace XamarinAudioPlayer
 {
-    public class MySliderHandler : SliderHandler
+    public class KKSliderHandler : SliderHandler
     {
-        public MySliderHandler(IPropertyMapper mapper, CommandMapper? commandMapper = null) : base(mapper, commandMapper)
+        public KKSliderHandler(IPropertyMapper mapper, CommandMapper? commandMapper = null) : base(mapper, commandMapper)
         {
         }
-        public MySliderHandler() : base()
+        public KKSliderHandler() : base()
         {
             // Optional: Add custom logic here
         }
