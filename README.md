@@ -3,6 +3,12 @@ https://www.nuget.org/packages/XamarinAudioPlayer.Forms.kk/
 
 ## Overview
 XamarinAudioPlayer.Forms.kk is a **MAUI** This library supports playing audio files from both the app's bundled resources and the device's local file system. UI for viewing, searching, and interacting with contacts stored on an Android or iOS device.
+## 📦 Installation
+
+Install via NuGet:
+
+```sh
+dotnet add package XamarinAudioPlayer.Forms.kk
 
 ## Features
 - Read Audio files from the app's bundled resources.
@@ -58,7 +64,7 @@ XamarinAudioPlayer.Forms.kk is a **MAUI** This library supports playing audio fi
          using XamarinAudioPlayer.Platforms.iOS;
          #endif
 
-         public partial class KKAudioPlayer : ContentPage
+         public partial class yourcalssname : ContentPage
          {
              private KKAudioFile _audioFile;
              public KKAudioPlayer()
@@ -129,10 +135,7 @@ XamarinAudioPlayer.Forms.kk is a **MAUI** This library supports playing audio fi
 1. Clone the repository:
    ```sh
    git clone https://github.com/kamalkumar1/XamarinFormsAudioplayer/tree/develop
-## Prerequisites
-Before running the project, ensure you have:
-- **MAUI**** installed
-- **Visual Studio** with MAUI development enabled
-- **Android SDK** (for Android development)
-- **iOS Simulator or device** (for iOS development)
+Author
+Kamal Kumar Senior Mobile Application Developer Open-source contributor|iOS(objective-c, Swift) | MAUI & Xamarin expert 📫 LinkedIn
+
 
