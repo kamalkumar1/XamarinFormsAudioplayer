@@ -6,14 +6,14 @@ namespace Audio
     public interface AudioInterface
     {
 
-        void SetUpAudio();
+        void SetUpAudio(string filename,string filetype);
         void Play();
         void Pause();
         void Restart();
         void RemoveNotification();
-        object playerCurrettime();
-        object getTotaltime();
+        object PlayerCurrettime();
+        object GetTotaltime();
         object MediaTotalDuration();
-        event EventHandler positionChanged;
+        event EventHandler PositionChanged;
     }
 }

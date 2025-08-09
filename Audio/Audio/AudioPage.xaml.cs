@@ -29,11 +29,11 @@ namespace Audio
             var dialer = DependencyService.Get<AudioInterface>();
             if (dialer != null)
             {
-                dialer.positionChanged += Dialer_PositionChanged;
-                dialer.SetUpAudio();
-                lblTotalCount.Text  = (string) dialer.getTotaltime();
+                dialer.PositionChanged += Dialer_PositionChanged;
+                dialer.SetUpAudio("KARTKA", "mp3");
+                lblTotalCount.Text  = (string) dialer.GetTotaltime();
                 customSlider.Maximum = Convert.ToDouble(dialer.MediaTotalDuration());
-              
+           
             }
         }
 

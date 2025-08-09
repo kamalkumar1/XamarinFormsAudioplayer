@@ -20,9 +20,14 @@ namespace Audio.iOS
         private const int NSEC_PER_SEC = 1000000000;
         // public void delegate po
         static public NSTimer timer;
-        public event EventHandler positionChanged;
+        public event EventHandler PositionChanged;
 
-        public object getTotaltime()
+        public static void LoadInit()
+        {
+            Console.WriteLine("Libary Iniated");
+        }
+
+        public object GetTotaltime()
         {
             var totalduration = player.CurrentItem.Asset.Duration.Seconds;
             var totaltime = Convert.ToInt64(totalduration);
@@ -34,7 +39,7 @@ namespace Audio.iOS
         public object MediaTotalDuration()
         {
 
-            if(player!=null)
+            if (player != null)
             {
                 return player.CurrentItem.Asset.Duration.Seconds;
             }
@@ -44,7 +49,7 @@ namespace Audio.iOS
             }
 
         }
-        public object playerCurrettime()
+        public object PlayerCurrettime()
         {
             var totalduration = player.CurrentTime.Seconds;
             var totaltime = Convert.ToInt64(totalduration);
@@ -62,15 +67,15 @@ namespace Audio.iOS
             var totalTime = minutes.ToString() + ":" + strSeconds;
             return totalTime;
         }
-        public void SetUpAudio()
+        public void SetUpAudio(string filename, string filetype)
         {
             Console.WriteLine("MethodCalled");
 
             AVAudioSession.SharedInstance().SetCategory(AVAudioSessionCategory.Playback);
-            var path = NSBundle.MainBundle.PathForResource("KARTKA", "mp3");
+            var path = NSBundle.MainBundle.PathForResource(filename, filetype);
             //  NSError err;  
             var urls = NSUrl.FromFilename(path);
-            if(urls!=null)
+            if (urls != null)
             {
                 player = AVPlayer.FromUrl(urls);
                 Console.WriteLine(player.CurrentItem.Asset.Duration);
@@ -113,12 +118,12 @@ namespace Audio.iOS
                                                            DispatchQueue.MainQueue,
                                                            delegate
                                                            {
-                                                               if (positionChanged != null)
+                                                               if (PositionChanged != null)
                                                                {
                                                                    var EmployeeList = new Dictionary<string, object>();
                                                                    EmployeeList.Add("CurrentDuration", player.CurrentTime.Seconds);
-                                                                   EmployeeList.Add("CurrentText", (string)playerCurrettime());
-                                                                   positionChanged(EmployeeList, EventArgs.Empty);
+                                                                   EmployeeList.Add("CurrentText", (string)PlayerCurrettime());
+                                                                   PositionChanged(EmployeeList, EventArgs.Empty);
                                                                }
                                                            });
 
@@ -134,12 +139,12 @@ namespace Audio.iOS
 
         void HandleAction(NSTimer obj)
         {
-            if (positionChanged != null)
+            if (PositionChanged != null)
             {
                 var EmployeeList = new Dictionary<string, object>();
                 EmployeeList.Add("CurrentDuration", player.CurrentTime.Seconds);
-                EmployeeList.Add("CurrentText", (string)playerCurrettime());
-                positionChanged(EmployeeList, EventArgs.Empty);
+                EmployeeList.Add("CurrentText", (string)PlayerCurrettime());
+                PositionChanged(EmployeeList, EventArgs.Empty);
             }
 
         }
@@ -180,12 +185,12 @@ namespace Audio.iOS
                 player.Play();
                 if (timeObserver == null)
                 {
-                    AddTimeObserverToPlayer();  
+                    AddTimeObserverToPlayer();
                 }
             }
 
         }
-      
+
         public static void getobject(double values)
         {
             long vOut = Convert.ToInt64(values);

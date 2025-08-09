@@ -19,11 +19,15 @@ namespace Audio.Droid
 
         public Handler handlers;
 
-        public event EventHandler positionChanged;
+        public event EventHandler PositionChanged;
         public Runnable runnable;
         //Runnable runnable = new Runnable();
+        public static void Init()
+        {
 
-        public object getTotaltime()
+        }
+
+        public object GetTotaltime()
         {
             int minutes = player.Duration / 1000 / 60;
             int seconds = player.Duration / 1000 % 60;
@@ -41,7 +45,7 @@ namespace Audio.Droid
             }
 
         }
-        public object playerCurrettime()
+        public object PlayerCurrettime()
         {
             int minutes = player.CurrentPosition / 1000 / 60;
             int seconds = player.CurrentPosition / 1000 % 60;
@@ -82,12 +86,12 @@ namespace Audio.Droid
             }
         }
 
-        public void SetUpAudio()
+        public void SetUpAudio(string filename,string filetype)
         {
             try
             {
                 player = new MediaPlayer();
-                afd = global::Android.App.Application.Context.Assets.OpenFd("KARTKA.mp3");
+                afd = global::Android.App.Application.Context.Assets.OpenFd(filename+"."+filetype);
                 player.SetDataSource(afd.FileDescriptor, afd.StartOffset, afd.Length);
                 player.Completion += Player_SeekComplete;
                 player.Info += Player_Info;
@@ -108,13 +112,13 @@ namespace Audio.Droid
         public void PlayCycle()
         {
             Console.WriteLine(player.CurrentPosition);
-            if (positionChanged != null)
+            if (PositionChanged != null)
                 if (player.CurrentPosition > 0)
                 {
                     var EmployeeList = new Dictionary<string, object>();
                     EmployeeList.Add("CurrentDuration", player.CurrentPosition);
-                    EmployeeList.Add("CurrentText", (string)playerCurrettime());
-                    positionChanged(EmployeeList, EventArgs.Empty);
+                    EmployeeList.Add("CurrentText", (string)PlayerCurrettime());
+                    PositionChanged(EmployeeList, EventArgs.Empty);
                 }
             if (player.IsPlaying)
             {
