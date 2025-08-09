@@ -17,7 +17,6 @@ public partial class KKAudioPlayer : ContentPage
     public KKAudioPlayer()
     {
         InitializeComponent();
-        BindingContext = new KKAuidoPlayerViewModel(); // Fix for CS8618: Initialize the ViewModel.
         _audioFile = new KKAudioFile(); 
         lblcurrent.Text = "0.0";
         SetupAuidoFile();
@@ -28,6 +27,7 @@ public partial class KKAudioPlayer : ContentPage
         base.OnDisappearing();
         if (_audioFile != null)
         {
+            _audioFile.PositionChanged -= Slider_PositionChanged;
             // To Remove all the audio setup and event handlers from the memory
             _audioFile.RemoveAudioSetup();
         }
@@ -77,7 +77,11 @@ public partial class KKAudioPlayer : ContentPage
             _audioFile.Restart();
         lblcurrent.Text = "0.0";
     }
-    
+    /// <summary>
+    /// Update the slider value and current play time in label based on the current play time of the audio file.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void Slider_PositionChanged(object sender, EventArgs e)
     {
         if (sender is KKAudioPlayTime playTime)

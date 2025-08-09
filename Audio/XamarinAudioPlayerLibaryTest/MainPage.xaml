@@ -15,6 +15,6 @@
             PlayImageName="play"
             PauseImageName="pause" 
             FileType="mp3" 
-            AudioName="KannadiPoove" />
+            AudioName="TestAudioSong" />
     </VerticalStackLayout>
 </ContentPage>

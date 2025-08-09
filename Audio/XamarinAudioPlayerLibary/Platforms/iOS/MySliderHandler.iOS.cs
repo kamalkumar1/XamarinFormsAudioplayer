@@ -9,7 +9,7 @@ using XamarinAudioPlayer.Control;
 
 namespace XamarinAudioPlayer
 {
-    internal class MySliderHandler : SliderHandler
+    public class MySliderHandler : SliderHandler
     {
 
         public MySliderHandler() : base()

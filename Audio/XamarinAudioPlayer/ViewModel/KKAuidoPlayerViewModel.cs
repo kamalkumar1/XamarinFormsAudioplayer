@@ -6,9 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using XamarinAudioPlayer.Model;
-
-
-
 #if ANDROID
 using XamarinAudioPlayer.Platforms.Android;
 #elif IOS
@@ -210,12 +207,21 @@ namespace XamarinAudioPlayer.ViewModel
             _kKAudioFile.PositionChanged += OnAudioFilePositionChanged;
             _kKAudioFile.IsAudioCompleted += OnAudioFileCompleted;
         }
+        /// <summary>
+        /// This method is called when the audio file playback is completed.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnAudioFileCompleted(object? sender, EventArgs e)
         {
             playAndPauseImageName = PlayImageName;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PlayAndPauseImageName)));
         }
-
+        /// <summary>
+        /// This method is called when the audio file play time get's changes.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnAudioFilePositionChanged(object? sender, EventArgs e)
         {
             if (sender is KKAudioPlayTime playTime)
