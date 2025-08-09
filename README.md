@@ -2,7 +2,7 @@
 https://www.nuget.org/packages/XamarinAudioPlayer.Forms.kk/
 
 ## Overview
-XamarinAudioPlayer.Forms.kk is a **MAUI** This library supports playing audio files from both the app's bundled resources and the device's local file system. UI for viewing, searching, and interacting with contacts stored on an Android or iOS device.
+XamarinAudioPlayer.Forms.kk is a **MAUI**  library supports playing audio files from both the app's bundled resources and the device's local file system.
 ## 📦 Installation
 
 Install via NuGet:
@@ -20,7 +20,7 @@ dotnet add package XamarinAudioPlayer.Forms.kk
 - It has play, pause, stop to control for the audio.
 
 ## DOCUEMNTAION 
- # To Implement the predefiened Audio Player View, you can follow the steps below:
+ # To Implement the predefined Audio Player View, you can follow the steps below:
    1. Add the `XamarinAudioPlayer.Forms.kk` NuGet package to your MAUI project.
    2. Add the your mp3 file inside the Resource -> Raw folder of your MAUI project.
    3. Create a new page or use an existing one where you want to display the audio player.
