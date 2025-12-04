@@ -59,9 +59,12 @@ Kamal Kumar Senior Mobile Application Developer Open-source contributor|iOS(obje
 
 ##OUTPUT Image
 ##ios
-![GitHub Logo](https://raw.githubusercontent.com/kamalkumar1/XamarinFormsAudioplayer/net10_upgrade/Screenshot_1764873668.png)
+
+![iOS Screenshot](https://github.com/kamalkumar1/XamarinFormsAudioplayer/blob/6c7642647cf534737509e6ab3b7c6cac85d46cc3/Screenshot_1764873668.png)
+
 ##Android
-Simulator Screenshot - iPhone 17 - 2025-12-05 at 00.08.17.png
+
+![Android Screenshot](https://github.com/kamalkumar1/XamarinFormsAudioplayer/blob/ab47ccf4b39ae358e3c9bb88203ca03a604e77c4/Screenshot_1764873668.png)
 
 
 
