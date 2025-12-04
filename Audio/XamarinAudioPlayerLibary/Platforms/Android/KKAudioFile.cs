@@ -48,24 +48,10 @@ namespace XamarinAudioPlayer.Platforms.Android
         /// <returns></returns>
         public object PlayerCurrentTime()
         {
-
             int minutes = Player?.CurrentPosition / 1000 / 60 ?? 0;
             int seconds = Player?.CurrentPosition / 1000 % 60 ?? 0;
             var totalTime = minutes.ToString() + ":" + seconds.ToString("D2");
             return totalTime;
-            // int minutes = Player?.CurrentPosition / 10000 / 60 ?? 0;
-            // int seconds = Player?.CurrentPosition / 10000 % 60 ?? 0;
-            // var strSeconds = string.Empty;
-            // if (seconds.ToString().Length == 1)
-            // {
-            //     strSeconds = "0" + seconds;
-            // }
-            // else
-            // {
-            //     strSeconds = seconds.ToString();
-            // }
-            // var totalTime = minutes.ToString() + ":" + strSeconds;
-            // return totalTime;
         }
     
         /// <summary>
@@ -197,20 +183,13 @@ namespace XamarinAudioPlayer.Platforms.Android
                 Player.SeekTo(values);
                 Player.Start();
             }
-
-
         }
-
         public bool OnInfo(MediaPlayer mp, [GeneratedEnum] MediaInfo what, int extra)
         {
-
             return true;
-
         }
-
         public void Dispose()
         {
-
         }
         public System.String milliSecondsToTimer(long milliseconds)
         {

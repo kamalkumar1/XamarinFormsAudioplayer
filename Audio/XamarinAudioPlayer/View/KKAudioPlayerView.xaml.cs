@@ -207,4 +207,22 @@ public partial class KKAudioPlayerView : ContentView
         base.OnHandlerChanged();
         // Called when the handler (platform renderer) is set or changed
     }
+    private void MyCustomSlider_DragCompleted(System.Object sender, System.EventArgs e)
+    {
+        var slider = sender as Slider;
+        if (slider != null)
+        {
+            double value = slider.Value;
+            ViewModel.SetSliderDragendTime(value);
+            // Use the value as needed
+            System.Diagnostics.Debug.WriteLine($"Slider drag completed with value: {value}");
+        }
+    
+    }
+
+    private void MyCustomSlider_DragStarted(object sender, EventArgs e)
+    {
+        ViewModel.PauseAudio();
+        
+    }
 }

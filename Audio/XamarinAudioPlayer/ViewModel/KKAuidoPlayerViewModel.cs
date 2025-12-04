@@ -244,7 +244,29 @@ namespace XamarinAudioPlayer.ViewModel
             _kKAudioFile.IsAudioCompleted -= OnAudioFileCompleted;
             _kKAudioFile.RemoveAudioSetup();
         }
-
+        public void SetSliderDragendTime(double sliderdragendtime)
+        {
+           //_kKAudioFile.StartOnSliderDragCompleted(sliderdragendtime);
+        #if ANDROID
+          
+           var longs = (int)(sliderdragendtime / 1000) % 60; ;
+            _kKAudioFile.getobject(longs);
+        #elif IOS
+            // iOS-specific code
+             _kKAudioFile.getobject((int)sliderdragendtime);
+        #endif
+        
+       
+          
+        }
+        public void PauseAudio()
+        {
+            _kKAudioFile.Pause();
+        }
+        public void PlayAudio()
+       {
+         _kKAudioFile.Play();
+       }
         private void OnPlay()
         {
             // TODO: Add play logic

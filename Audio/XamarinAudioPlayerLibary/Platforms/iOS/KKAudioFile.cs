@@ -21,8 +21,9 @@ namespace XamarinAudioPlayer.Platforms.iOS
         public event EventHandler IsAudioCompleted;
 
         public KKAudioFile()
-        {
-        }
+    {
+      
+    }
         public object GetTotalTime()
         {
             var totalduration = Player?.CurrentItem.Asset.Duration.Seconds;

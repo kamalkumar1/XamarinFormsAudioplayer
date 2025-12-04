@@ -167,7 +167,17 @@ namespace XamarinAudioPlayer.Platforms.iOS
         {
             Player?.Pause();
         }
-
+        public void StartOnSliderDragCompleted(double sliderValue)
+        {
+            if (Player?.CurrentItem.Status == AVPlayerItemStatus.ReadyToPlay)
+            {
+                double totalDuration =(double) MediaTotalDuration(); // Your audio duration in seconds
+                double playTimeSeconds = sliderValue / 100.0 * totalDuration;
+                CMTime seekTime = CMTime.FromSeconds(playTimeSeconds, 600);
+                Player.Seek(seekTime);
+            }
+      
+        }
         public void Restart()
         {
             // StopTimer();

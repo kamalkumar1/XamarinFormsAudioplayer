@@ -2,10 +2,13 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="XamarinAudioPlayer.KKAudioPage"
-             xmlns:cs ="clr-namespace:XamarinAudioPlayer"
+             xmlns:cs ="clr-namespace:XamarinAudioPlayer.View"
              Title="KKAudioPage">
+           
     <VerticalStackLayout Margin="0,200,0,0" Spacing="10">
-        <cs:KKAudioPlayerView 
+        <Label  />
+          <Border StrokeShape="RoundRectangle 10"  Margin="10,0,10,0" Padding="0,20,0,20" BackgroundColor ="AliceBlue">
+            <cs:KKAudioPlayerView 
             EndPlayTimeTextColor="Red"
             CurrentPlayTimeTextColor="Blue"
             MaximumSliderTrackColor="Green"
@@ -15,6 +18,9 @@
             PlayImageName="play"
             PauseImageName="pause" 
             FileType="mp3" 
-            AudioName="KannadiPoove" />
+            AudioName="TestAudioSong" />
+
+        </Border>
+        
     </VerticalStackLayout>
 </ContentPage>

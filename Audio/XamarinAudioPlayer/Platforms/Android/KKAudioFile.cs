@@ -48,24 +48,10 @@ namespace XamarinAudioPlayer.Platforms.Android
         /// <returns></returns>
         public object PlayerCurrentTime()
         {
-
             int minutes = Player?.CurrentPosition / 1000 / 60 ?? 0;
             int seconds = Player?.CurrentPosition / 1000 % 60 ?? 0;
             var totalTime = minutes.ToString() + ":" + seconds.ToString("D2");
             return totalTime;
-            // int minutes = Player?.CurrentPosition / 10000 / 60 ?? 0;
-            // int seconds = Player?.CurrentPosition / 10000 % 60 ?? 0;
-            // var strSeconds = string.Empty;
-            // if (seconds.ToString().Length == 1)
-            // {
-            //     strSeconds = "0" + seconds;
-            // }
-            // else
-            // {
-            //     strSeconds = seconds.ToString();
-            // }
-            // var totalTime = minutes.ToString() + ":" + strSeconds;
-            // return totalTime;
         }
     
         /// <summary>
@@ -253,6 +239,10 @@ namespace XamarinAudioPlayer.Platforms.Android
                 return Player.IsPlaying;
             }
             return false;
+        }
+        public void StartOnSliderDragCompleted(double sliderValue)
+        {
+           
         }
     }
      
