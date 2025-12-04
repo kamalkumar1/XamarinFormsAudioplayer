@@ -243,6 +243,9 @@ namespace XamarinAudioPlayer.ViewModel
             _kKAudioFile.PositionChanged -= OnAudioFilePositionChanged;
             _kKAudioFile.IsAudioCompleted -= OnAudioFileCompleted;
             _kKAudioFile.RemoveAudioSetup();
+            // Fix for CS8625: Cannot convert null literal to non-nullable reference type.
+            // Instead of setting to null, dispose and leave the reference as is.
+            _kKAudioFile = null;
         }
         public void SetSliderDragendTime(double sliderdragendtime)
         {
