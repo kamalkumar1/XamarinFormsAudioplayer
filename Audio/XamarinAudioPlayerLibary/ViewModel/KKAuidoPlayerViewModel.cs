@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using XamarinAudioPlayer.Interface;
 using XamarinAudioPlayer.Model;
 #if ANDROID
 using XamarinAudioPlayer.Platforms.Android;
@@ -197,13 +198,14 @@ namespace XamarinAudioPlayer.ViewModel
             }
         }
       
-        KKAudioFile _kKAudioFile;
+       // KKAudioFile _kKAudioFile;
+       IAudioInterface _kKAudioFile;
 
-
-        public KKAuidoPlayerViewModel()
+   
+        public KKAuidoPlayerViewModel(IAudioInterface audioInterface)
         {
-            PlayCommand = new Command(OnPlay);
-            _kKAudioFile = new KKAudioFile();
+            _kKAudioFile = audioInterface;
+             PlayCommand = new Command(OnPlay);
             _kKAudioFile.PositionChanged += OnAudioFilePositionChanged;
             _kKAudioFile.IsAudioCompleted += OnAudioFileCompleted;
         }

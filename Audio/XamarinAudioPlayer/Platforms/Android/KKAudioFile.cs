@@ -9,7 +9,15 @@ using XamarinAudioPlayer.Model;
 
 namespace XamarinAudioPlayer.Platforms.Android
 {
-
+    
+public enum PlayerState
+{
+    Idle,
+    Playing,
+    Paused,
+    Stopped,
+    Error
+}
     internal class KKAudioFile : IAudioInterface
     {
          MediaPlayer? Player;
@@ -98,6 +106,7 @@ namespace XamarinAudioPlayer.Platforms.Android
                 Player = null;
                 afd?.Close();
                 afd = null;
+                  _currentState = PlayerState.Stopped;
             }
         }
 
@@ -126,6 +135,7 @@ namespace XamarinAudioPlayer.Platforms.Android
         /// </summary>
         public void Play()
         {
+              _currentState = PlayerState.Playing;
             Player?.Start();
             if (handlers == null)
                 handlers = new Handler();
@@ -137,6 +147,7 @@ namespace XamarinAudioPlayer.Platforms.Android
         public void Pause()
         {
             Player?.Pause();
+              _currentState = PlayerState.Paused;
         }
         
         /// <summary>
@@ -150,6 +161,7 @@ namespace XamarinAudioPlayer.Platforms.Android
                 Player.SetDataSource(afd.FileDescriptor, afd.StartOffset, afd.Length);
                 Player.Prepare();
                 Player.Start();
+                _currentState = PlayerState.Playing;
                 handlers = new Handler();
                 PlayCycle();
 
@@ -164,34 +176,26 @@ namespace XamarinAudioPlayer.Platforms.Android
         {
             if (Player != null)
             {
+                  _currentState = PlayerState.Stopped;
                 IsAudioCompleted?.Invoke(null, EventArgs.Empty);
             }
         }
+        private PlayerState _currentState = PlayerState.Idle;
 
         public  void getobject(int values)
         {
-            //Console.WriteLine("console5:"+ values);
-            if (Player.IsPlaying)
-            {
-                var user = Player.Duration / 1000 * values;
-                Console.WriteLine("Write:" + user);
-                Player.SeekTo(user);
-
-            }
-            else
+            if (_currentState == PlayerState.Paused)
             {
                 Player.SeekTo(values);
-                Player.Start();
+                Play();
+              _currentState =PlayerState.Playing;
+                
             }
-
-
         }
 
         public bool OnInfo(MediaPlayer mp, [GeneratedEnum] MediaInfo what, int extra)
         {
-
             return true;
-
         }
 
         public void Dispose()
@@ -236,14 +240,12 @@ namespace XamarinAudioPlayer.Platforms.Android
         {
             if (Player != null)
             {
+                _currentState = PlayerState.Playing;
                 return Player.IsPlaying;
             }
             return false;
         }
-        public void StartOnSliderDragCompleted(double sliderValue)
-        {
-           
-        }
+       
     }
      
 }

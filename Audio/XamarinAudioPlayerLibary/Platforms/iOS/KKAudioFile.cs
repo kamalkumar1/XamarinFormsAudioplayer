@@ -21,9 +21,9 @@ namespace XamarinAudioPlayer.Platforms.iOS
         public event EventHandler IsAudioCompleted;
 
         public KKAudioFile()
-    {
+        {
       
-    }
+        }
         public object GetTotalTime()
         {
             var totalduration = Player?.CurrentItem.Asset.Duration.Seconds;
@@ -35,7 +35,6 @@ namespace XamarinAudioPlayer.Platforms.iOS
         }
         public object MediaTotalDuration()
         {
-
             if (Player != null)
             {
                 return Player?.CurrentItem.Asset.Duration.Seconds;
@@ -75,7 +74,6 @@ namespace XamarinAudioPlayer.Platforms.iOS
                 Player = AVPlayer.FromUrl(urls);
                 Debug.WriteLine(Player.CurrentItem.Asset.Duration);
                 FinishNotification = NSNotificationCenter.DefaultCenter.AddObserver(AVPlayerItem.DidPlayToEndTimeNotification, HandleNotification);
-
             }
             else
             {

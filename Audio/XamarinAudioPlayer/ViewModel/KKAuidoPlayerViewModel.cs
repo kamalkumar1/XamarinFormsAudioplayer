@@ -247,10 +247,11 @@ namespace XamarinAudioPlayer.ViewModel
         public void SetSliderDragendTime(double sliderdragendtime)
         {
            //_kKAudioFile.StartOnSliderDragCompleted(sliderdragendtime);
+           var intes = Convert.ToInt32(sliderdragendtime);
         #if ANDROID
           
            var longs = (int)(sliderdragendtime / 1000) % 60; ;
-            _kKAudioFile.getobject(longs);
+            _kKAudioFile.getobject(intes);
         #elif IOS
             // iOS-specific code
              _kKAudioFile.getobject((int)sliderdragendtime);
