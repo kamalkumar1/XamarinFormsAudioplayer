@@ -1,10 +1,9 @@
 using XamarinAudioPlayer.ViewModel;
 
-namespace XamarinAudioPlayerLibary.View;
+namespace XamarinAudioPlayer.View;
 
 public partial class KKAudioPlayerView : ContentView
 {
-
     public static readonly BindableProperty AudioNameProperty =
         BindableProperty.Create(
             nameof(AudioName),
@@ -217,32 +216,13 @@ public partial class KKAudioPlayerView : ContentView
             ViewModel.SetSliderDragendTime(value);
             // Use the value as needed
             System.Diagnostics.Debug.WriteLine($"Slider drag completed with value: {value}");
-
-
         }
-
-
     
-
-
     }
-
-
-
-
 
     private void MyCustomSlider_DragStarted(object sender, EventArgs e)
-
-
     {
-
-
         ViewModel.PauseAudio();
-
-
         
-
-
     }
-
 }
