@@ -246,19 +246,13 @@ namespace XamarinAudioPlayer.ViewModel
         }
         public void SetSliderDragendTime(double sliderdragendtime)
         {
-           //_kKAudioFile.StartOnSliderDragCompleted(sliderdragendtime);
-           var intes = Convert.ToInt32(sliderdragendtime);
-        #if ANDROID
-          
-           var longs = (int)(sliderdragendtime / 1000) % 60; ;
-            _kKAudioFile.getobject(intes);
-        #elif IOS
-            // iOS-specific code
-             _kKAudioFile.getobject((int)sliderdragendtime);
-        #endif
-        
-       
-          
+            #if ANDROID
+                var intes = Convert.ToInt32(sliderdragendtime);
+                _kKAudioFile.getobject(intes);
+            #elif IOS
+                // iOS-specific code
+                _kKAudioFile.getobject((int)sliderdragendtime);
+            #endif
         }
         public void PauseAudio()
         {

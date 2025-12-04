@@ -21,7 +21,6 @@ public partial class KKAudioPlayer : ContentPage
         lblcurrent.Text = "0.0";
         SetupAuidoFile();
     }
-
     protected override void OnDisappearing()
     {
         base.OnDisappearing();
@@ -89,5 +88,33 @@ public partial class KKAudioPlayer : ContentPage
             lblcurrent.Text = playTime.CurrentPlayTime.ToString();
             customSlider.Value = Convert.ToDouble(playTime.SliderValue);
         }
+    }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void MyCustomSlider_DragCompleted(System.Object sender, System.EventArgs e)
+    {
+        var slider = sender as Slider;
+        if (slider != null)
+        {
+            double value = slider.Value;
+               #if ANDROID
+                var intes = Convert.ToInt32(value);
+                _audioFile.getobject(intes);
+            #elif IOS
+                // iOS-specific code
+                _audioFile.getobject((int)value);
+            #endif
+            // Use the value as needed
+            System.Diagnostics.Debug.WriteLine($"Slider drag completed with value: {value}");
+        }
+    }
+
+    private void MyCustomSlider_DragStarted(object sender, EventArgs e)
+    {
+        _audioFile.Pause();
+        
     }
 }

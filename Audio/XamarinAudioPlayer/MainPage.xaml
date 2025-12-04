@@ -6,8 +6,8 @@
   
         <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center"
         Spacing="25">  
-           <Button Text="InBuildController" Command="{Binding InBuildCommand}" />
-            <Button Text="CreateYourOwnPlayer" Command="{Binding CreateYourOwnPlayerCommand}"  />
+           <Button Text="Create your ownplayer" Command="{Binding InBuildCommand}" />
+            <Button Text="InBuildPlayer" Command="{Binding CreateYourOwnPlayerCommand}"  />
         </VerticalStackLayout>
 
 

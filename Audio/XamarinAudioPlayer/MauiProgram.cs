@@ -14,12 +14,6 @@ namespace XamarinAudioPlayer
             var builder = MauiApp.CreateBuilder()
 
                 .UseMauiApp<App>()
-                .ConfigureMauiHandlers(handler =>
-                {
-
-                    handler.AddHandler(typeof(MyCustomSlider), typeof(XamarinAudioPlayer.MySliderHandler));
-
-                })
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
