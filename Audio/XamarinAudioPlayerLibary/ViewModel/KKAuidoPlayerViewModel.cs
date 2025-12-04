@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using XamarinAudioPlayer.Interface;
 using XamarinAudioPlayer.Model;
 #if ANDROID
 using XamarinAudioPlayer.Platforms.Android;
@@ -18,11 +17,7 @@ namespace XamarinAudioPlayer.ViewModel
     internal class KKAuidoPlayerViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
-
-
         public ICommand PlayCommand { get; }
-
-
         private string totalPlayTime;
         public string TotalPlayTime
         {
@@ -36,7 +31,6 @@ namespace XamarinAudioPlayer.ViewModel
                 }
             }
         }
-
         private string currentPlayTime;
         public string CurrentPlayTime
         {
@@ -50,7 +44,6 @@ namespace XamarinAudioPlayer.ViewModel
                 }
             }
         }
-
         private string fileName;
         public string FileName
         {
@@ -198,23 +191,31 @@ namespace XamarinAudioPlayer.ViewModel
             }
         }
       
-       // KKAudioFile _kKAudioFile;
-       IAudioInterface _kKAudioFile;
+        KKAudioFile _kKAudioFile;
 
-   
-        public KKAuidoPlayerViewModel(IAudioInterface audioInterface)
+
+        public KKAuidoPlayerViewModel()
         {
-            _kKAudioFile = audioInterface;
-             PlayCommand = new Command(OnPlay);
+            PlayCommand = new Command(OnPlay);
+            _kKAudioFile = new KKAudioFile();
             _kKAudioFile.PositionChanged += OnAudioFilePositionChanged;
             _kKAudioFile.IsAudioCompleted += OnAudioFileCompleted;
         }
+        /// <summary>
+        /// This method is called when the audio file playback is completed.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnAudioFileCompleted(object? sender, EventArgs e)
         {
             playAndPauseImageName = PlayImageName;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PlayAndPauseImageName)));
         }
-
+        /// <summary>
+        /// This method is called when the audio file play time get's changes.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnAudioFilePositionChanged(object? sender, EventArgs e)
         {
             if (sender is KKAudioPlayTime playTime)
@@ -237,7 +238,24 @@ namespace XamarinAudioPlayer.ViewModel
             _kKAudioFile.IsAudioCompleted -= OnAudioFileCompleted;
             _kKAudioFile.RemoveAudioSetup();
         }
-
+        public void SetSliderDragendTime(double sliderdragendtime)
+        {
+            #if ANDROID
+                var intes = Convert.ToInt32(sliderdragendtime);
+                _kKAudioFile.getobject(intes);
+            #elif IOS
+                // iOS-specific code
+                _kKAudioFile.getobject((int)sliderdragendtime);
+            #endif
+        }
+        public void PauseAudio()
+        {
+            _kKAudioFile.Pause();
+        }
+        public void PlayAudio()
+       {
+         _kKAudioFile.Play();
+       }
         private void OnPlay()
         {
             // TODO: Add play logic

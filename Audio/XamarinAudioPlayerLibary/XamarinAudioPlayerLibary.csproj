@@ -14,19 +14,25 @@
 		<PackageIcon>Nuget_icon.png</PackageIcon>
 		<PackageId>XamarinAudioPlayer.Forms.kk</PackageId>
 		<Title>MAUI Audio Player</Title>
-		<Version>2.1.1</Version>
+		<Version>3.1.1</Version>
 		<Company>kamal</Company>
 		<Description>This library supports playing audio files from both the app's bundled resources and the device's local file system.</Description>
 		<PackageProjectUrl>https://github.com/kamalkumar1/XamarinFormsAudioplayer/tree/develop</PackageProjectUrl>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageLicenseFile>MIT License.txt</PackageLicenseFile>
-		<PackageReleaseNotes>- Read Audio files from the app's bundled resources.
-- Read Audio files from the device's local file system.
-- Cross-platform support (**Android &amp; iOS**).
-- Smooth UI experience with **MAUI**.
-- It has predefined Audio Player Controls for easy integration.
-- It has progress control to show the audio file play time.
-- It has play, pause, stop to control for the audio.</PackageReleaseNotes>
+		<PackageReleaseNotes>
+		    - It has support for .NET 10
+			  - Bug fixing has 
+				- Check git url for full documentation
+				- Read Audio files from the app's bundled resources.
+				- Read Audio files from the device's local file system.
+				- Cross-platform support (**Android &amp; iOS**).
+				- Smooth UI experience with **MAUI**.
+				- It has predefined Audio Player Controls for easy integration.
+				- It has progress control to show the audio file play time.
+				- It has play, pause, stop to control for the audio.
+				
+</PackageReleaseNotes>
 		<PackageTags>iOS;Android;MAUI;Xamarin;Xamarinforms;Audio;mp3</PackageTags>
 		<RepositoryUrl>https://github.com/kamalkumar1/XamarinFormsAudioplayer/tree/develop</RepositoryUrl>
 	</PropertyGroup>
@@ -50,6 +56,10 @@
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Control/" />
 	</ItemGroup>
 
 </Project>
